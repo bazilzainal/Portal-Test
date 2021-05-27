@@ -13,6 +13,7 @@ public class PlayerMovement : MonoBehaviour
     float xRaw;
     float yRaw;
     bool isGrounded = true;
+    int doubleJump = 1;
 
     // Better Jumps
     public float fallMultiplier;
@@ -32,10 +33,11 @@ public class PlayerMovement : MonoBehaviour
         xRaw = Input.GetAxisRaw("Horizontal");
         yRaw = Input.GetAxisRaw("Vertical");
         
-        if (Input.GetButtonDown("Jump") && isGrounded)
+        if (Input.GetButtonDown("Jump") && doubleJump >= 0)
         {
             Jump(Vector2.up);
             isGrounded = false;
+            doubleJump -= 1;
         }
 
         //Better Jump Feel
@@ -62,6 +64,7 @@ public class PlayerMovement : MonoBehaviour
         if (collision.gameObject.tag == "Floor")
         {
             isGrounded = true;
+            doubleJump = 1;
         }
     }
 
